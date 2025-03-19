@@ -30,7 +30,7 @@ function openEditPopup() {
   openPopup(editProfilePopup);
 };
 
-function handleFormSubmit(event) {
+function handleProfileFormSubmit(event) {
   event.preventDefault();
   profileName.textContent = nameProfileInput.value;
   profileJob.textContent = jobProfileInput.value;
@@ -66,4 +66,4 @@ initialCards.forEach((card) => {
 openProfileEditBtn.addEventListener('click', openEditPopup);
 addCardBtn.addEventListener('click', openNewCardPopup);
 formAddCard.addEventListener('submit', handleAddCardSubmit);
-editProfileFormElement.addEventListener('submit', handleFormSubmit);
+editProfileFormElement.addEventListener('submit', handleProfileFormSubmit);
