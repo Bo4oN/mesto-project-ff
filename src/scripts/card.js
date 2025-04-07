@@ -4,20 +4,35 @@ export function deleteCard(cardElement) {
   cardElement.remove();
 };
 
-export function createCard(card, deleteCard, openImagePopup) {
-  const newCard = templateCard.cloneNode(true).firstElementChild;
-  const img = newCard.querySelector('.card__image');
-  const title = newCard.querySelector('.card__title');
-  const deleteButton = newCard.querySelector('.card__delete-button');
-  const likeButton = newCard.querySelector('.card__like-button');
+export function createCard(cardData, { onDeleteClick, onImageClick, onLikeClick }) {
+  const cardElement = templateCard.cloneNode(true).firstElementChild;
+  const img = cardElement.querySelector('.card__image');
+  const title = cardElement.querySelector('.card__title');
+  const deleteButton = cardElement.querySelector('.card__delete-button');
+  const likeButton = cardElement.querySelector('.card__like-button');
+  const likeCounter = cardElement.querySelector('.card__like-counter');
 
-  img.src = card.link;
-  img.alt = card.name;
-  title.textContent = card.name;
+  img.src = cardData.link;
+  img.alt = cardData.name;
+  title.textContent = cardData.name;
+  likeCounter.textContent = cardData.likes.length;
 
-  deleteButton.addEventListener('click', () => deleteCard(newCard));
-  img.addEventListener('click', () => openImagePopup(card));
-  likeButton.addEventListener('click', () => likeButton.classList.toggle('card__like-button_is-active'));
+  // Вызов переданного обработчика по клику на картинку
+  img.addEventListener('click', () => onImageClick(cardData));
 
-  return newCard;
-};
+  // Вызов переданного обработчика лайка
+  likeButton.addEventListener('click', () => onLikeClick(cardData, cardElement));
+
+  // Вызов обработчика удаления
+  deleteButton.addEventListener('click', () => onDeleteClick(cardData, cardElement));
+
+  if (cardData.owner._id !== cardData.currentUserId) {
+    deleteButton.remove();
+  }
+
+  if (cardData.likes.some(user => user._id === cardData.currentUserId)) {
+    likeButton.classList.add('card__like-button_is-active');
+  }
+
+  return cardElement;
+}
