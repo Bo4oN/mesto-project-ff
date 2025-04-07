@@ -4,7 +4,7 @@ export function deleteCard(cardElement) {
   cardElement.remove();
 };
 
-export function createCard(cardData, { onDeleteClick, onImageClick, onLikeClick }) {
+export function createCard(cardData, currentUserId, { onDeleteClick, onImageClick, onLikeClick }) {
   const cardElement = templateCard.cloneNode(true).firstElementChild;
   const img = cardElement.querySelector('.card__image');
   const title = cardElement.querySelector('.card__title');
@@ -17,20 +17,17 @@ export function createCard(cardData, { onDeleteClick, onImageClick, onLikeClick 
   title.textContent = cardData.name;
   likeCounter.textContent = cardData.likes.length;
 
-  // Вызов переданного обработчика по клику на картинку
   img.addEventListener('click', () => onImageClick(cardData));
 
-  // Вызов переданного обработчика лайка
   likeButton.addEventListener('click', () => onLikeClick(cardData, cardElement));
 
-  // Вызов обработчика удаления
-  deleteButton.addEventListener('click', () => onDeleteClick(cardData, cardElement));
-
-  if (cardData.owner._id !== cardData.currentUserId) {
+  if (cardData.owner._id !== currentUserId) {
     deleteButton.remove();
+  } else {
+    deleteButton.addEventListener('click', () => onDeleteClick(cardData, cardElement));
   }
 
-  if (cardData.likes.some(user => user._id === cardData.currentUserId)) {
+  if (cardData.likes.some(user => user._id === currentUserId)) {
     likeButton.classList.add('card__like-button_is-active');
   }
 

@@ -24,3 +24,11 @@
   visibility: hidden;
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
+
+.popup_type_change-avatar .popup__content {
+  min-height: 272px;
+}
+
+.popup_type_confirm .popup__content {
+  min-height: 181px;
+}

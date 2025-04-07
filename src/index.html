@@ -8,7 +8,6 @@
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Mesto</title>
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="page">
     <div class="page__content">
@@ -49,6 +48,8 @@
               required
               minlength="2"
               maxlength="40"
+              pattern="^[a-zA-Zа-яА-Я\s\-]+$"
+              data-error-message="Разрешены только буквы, пробелы и дефисы"
             />
             <span class="error-message" id="name-error"></span>
             <input
@@ -59,6 +60,8 @@
               required
               minlength="2"
               maxlength="40"
+              pattern="^[a-zA-Zа-яА-Я\s\-]+$"
+              data-error-message="Разрешены только буквы, пробелы и дефисы"
             />
             <span class="error-message" id="description-error"></span>
             <button type="submit" class="button popup__button">
@@ -80,6 +83,8 @@
               required
               minlength="2"
               maxlength="30"
+              pattern="^[a-zA-Zа-яА-Я\s\-]+$"
+              data-error-message="Разрешены только буквы, пробелы и дефисы"
             />
             <span class="error-message" id="place-name-error"></span>
             <input

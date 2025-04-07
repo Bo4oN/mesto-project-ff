@@ -7,15 +7,6 @@ export function openPopup(popup) {
   const closeBtn = popup.querySelector('.popup__close');
 
   if (closeBtn) closeBtn.addEventListener('click', handleCloseBtnClick);
-
-  const form = popup.querySelector('.popup__form');
-  if (form) {
-    toggleButtonState(form);
-    if (!form.dataset.validationAttached) {
-      setEventListeners(form);
-      form.dataset.validationAttached = "true";
-    }
-  }
 };
 
 export function closePopup(popup) {
@@ -25,12 +16,6 @@ export function closePopup(popup) {
   document.removeEventListener('click', handleOutsideClick);
   const closeBtn = popup.querySelector('.popup__close');
   if (closeBtn) closeBtn.removeEventListener('click', handleCloseBtnClick);
-
-  const form = popup.querySelector('.popup__form');
-  if (form) {
-    form.reset();
-    resetValidation(form);
-  }
 };
 
 function handleCloseBtnClick(event) { closePopup(event.target.closest('.popup')); }
